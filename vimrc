@@ -63,9 +63,6 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" Activate nerd tree
-nmap <leader>nt :NERDTree<cr>
-
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
@@ -102,6 +99,10 @@ endif
 
 "Highlight current line
 set cursorline
+"hi CursorLine term=bold cterm=bold guibg=Grey40
+"hi CursorLine ctermbg=8 ctermfg=15
+hi CursorLine ctermbg=8
+"hi Cursor ctermbg=15 ctermfg=8
 
 "Show line numbers
 set number relativenumber
@@ -163,6 +164,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
+    colorscheme elflord
 "    colorscheme darth
 "    colorscheme cabin
 "    colorscheme cthulhian
@@ -170,7 +172,7 @@ try
 "    colorscheme badwolf
 "    colorscheme detailed
 "    colorscheme burnttoast256
-    colorscheme antares
+"    colorscheme antares
 "    colorscheme CandyPaper
 "    colorscheme dante
 "    colorscheme darkerdesert
@@ -220,8 +222,8 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Set a color bar at column 80
-set colorcolumn=80
+" Set a color bar at column 120
+set colorcolumn=120
 highlight ColorColumn ctermbg=8 guibg=lightgrey
 "highlight ColorColumn ctermbg=5 guibg=lightgrey
 
@@ -328,33 +330,33 @@ set laststatus=2
 "
 "" Format the status line
 ""set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-"set statusline=
-"set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-"set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-"set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
-"set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-"set statusline+=\ %n\           " buffer number
-"set statusline+=%#Visual#       " colour
-"set statusline+=%{&paste?'\ PASTE\ ':''}
-"set statusline+=%{&spell?'\ SPELL\ ':''}
-"set statusline+=%#CursorIM#     " colour
-"set statusline+=%R                        " readonly flag
-"set statusline+=%M                        " modified [+] flag
-"set statusline+=%#Cursor#               " colour
-"set statusline+=%#CursorLine#     " colour
-"set statusline+=\ %t\                   " short file name
-"set statusline+=%=                          " right align
-"set statusline+=%#CursorLine#   " colour
-"set statusline+=\ %Y\                   " file type
-"set statusline+=%#CursorIM#     " colour
-"set statusline+=\ %3l:%-2c\         " line + column
-"set statusline+=%#Cursor#       " colour
-"set statusline+=\ %3p%%\                " percentage
+set statusline=
+set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
+set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=\ %n\           " buffer number
+set statusline+=%#Visual#       " colour
+set statusline+=%{&paste?'\ PASTE\ ':''}
+set statusline+=%{&spell?'\ SPELL\ ':''}
+set statusline+=%#CursorIM#     " colour
+set statusline+=%R                        " readonly flag
+set statusline+=%M                        " modified [+] flag
+set statusline+=%#Cursor#               " colour
+set statusline+=%#CursorLine#     " colour
+set statusline+=\ %t\                   " short file name
+set statusline+=%=                          " right align
+set statusline+=%#CursorLine#   " colour
+set statusline+=\ %Y\                   " file type
+set statusline+=%#CursorIM#     " colour
+set statusline+=\ %3l:%-2c\         " line + column
+set statusline+=%#Cursor#       " colour
+set statusline+=\ %3p%%\                " percentage
 "
 " statusline for syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -394,17 +396,19 @@ endif
 " => File Browser Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner=0        "disable annoying banner
-let g:netrw_browser_split=2 "open in prior window
+let g:netrw_browser_split=4 "open in prior window
 let g:netrw_altv=1          "open splits to the right
 let g:netrw_liststyle=3     "tree view
-let g:netrw_winsize=20      "tree view
+"let g:netrw_winsize=20      "tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-augroup ProjectDrawer
-    autocmd!
-    autocmd VimEnter * :Vexplore
-augroup END
+"augroup ProjectDrawer
+"    autocmd!
+"    autocmd VimEnter * :Vexplore
+"augroup END
 
+"Open NERDTree with leader-n
+map <leader>n :NERDTree<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -436,6 +440,7 @@ map <leader>pp :setlocal paste!<cr>
 "" Change color at column 80
 "" highlight ColorColumn ctermbg=200 guibg=#1d1d1d
 "" let &colorcolumn=join(range(81,999),",")
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
